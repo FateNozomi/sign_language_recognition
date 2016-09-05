@@ -2,10 +2,12 @@
 % PCA v2 %
 %%%%%%%%%%
 % Reset
-clc; clear all; close all;
+clc; clear; close all;
 % Building Database
-% Path to directory
-Database = 'C:\Users\L\Documents\MATLAB\Prototype\Database';
+% Get path to Database directory
+% The pwd command displays the MATLAB® current folder. Therefore, please
+% navigate to the root directory of this file before running this script.
+Database = [pwd '\database'];
 % Check if directory exists
 if ~isdir(Database)
     errorMessage = sprintf('Error; The following directory does not exist: \n%s', Database);
@@ -75,7 +77,7 @@ w=FD'*dbx;
 %%%%%%%%%%%%%%%%%%%%%%%%%
 %  input unknown image  %
 
-% unknownSample = fullfile('D:\Will\Documents\MATLAB\Prototype\Database\Sample', 'a4.fig');
+% unknownSample = fullfile([pwd '\Database\Sample'], 'a4.fig');
 % imTemp1=openfig(unknownSample,'invisible');
 % fprintf(1, '\nIdentifiying unknown sample %s\n', unknownSample);
 % imTemp2=findobj(imTemp1,'type','image');
