@@ -71,7 +71,7 @@ for i=1:M
     dbx=[dbx temp];
 end
 
-[eigval FD]=pca(dbx);
+[eigval, FD]=pca(dbx);
 w=FD'*dbx;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%
@@ -89,14 +89,14 @@ I1 = getsnapshot(depthVid);
 %make a copy of the original image
 I=I1;
 %make all zeroes to be 4000
-I(find(I<1))=4000;
+I(I<1)=4000;
 figure;imshow(I, [0 4000]);
 %make pixel more than min+50 to become 0
 offset=min(min(I))+100;
-I(find(I>offset))=0;
+I(I>offset)=0;
 
 %make all zeroes to be 4000
-I(find(I<1))=4000;
+I(I<1)=4000;
 
 %offset all values by the minimum value
 I=I-min(min(I));
