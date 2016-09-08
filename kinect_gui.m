@@ -52,6 +52,29 @@ function kinect_gui_OpeningFcn(hObject, eventdata, handles, varargin)
 % handles    structure with handles and user data (see GUIDATA)
 % varargin   command line arguments to kinect_gui (see VARARGIN)
 
+axes(handles.kinect_axes);
+% initialize kinect RGB input
+colorVid = videoinput('kinect',1,'RGB_640x480');
+
+% Create an image object for previewing.
+% http://www.mathworks.com/help/imaq/preview.html
+% Use get(colorVid) to view a complete list of all the properties 
+% supported by a video input object or a video source object
+% VideoResolution of colorVid returns an array of [640 480]
+% vidRes(2) returns the height of colorVid
+% vidRes(1) returns the width of colorVid
+% nBands    returns number of color bands in data to be acquired
+vidRes = colorVid.VideoResolution;
+nBands = colorVid.NumberOfBands;
+% create placeholder image which matches source
+hImage = image( zeros(vidRes(2), vidRes(1), nBands) );
+preview(colorVid, hImage);
+
+axes(handles.sign_axes);
+directory = [pwd '\asl_preview\a.png'];
+signA = imread(directory);
+imshow(signA);
+
 % Choose default command line output for kinect_gui
 handles.output = hObject;
 
@@ -71,45 +94,6 @@ function varargout = kinect_gui_OutputFcn(hObject, eventdata, handles)
 
 % Get default command line output from handles structure
 varargout{1} = handles.output;
-
-
-% --- Executes on button press in start_kinect_pushbutton.
-function start_kinect_pushbutton_Callback(hObject, eventdata, handles)
-% hObject    handle to start_kinect_pushbutton (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% initialize kinect RGB input
-colorVid = videoinput('kinect',1,'RGB_640x480');
-
-% Create an image object for previewing.
-% http://www.mathworks.com/help/imaq/preview.html
-% Use get(colorVid) to view a complete list of all the properties 
-% supported by a video input object or a video source object
-% VideoResolution of colorVid returns an array of [640 480]
-% vidRes(2) returns the height of colorVid
-% vidRes(1) returns the width of colorVid
-% nBands    returns number of color bands in data to be acquired
-vidRes = colorVid.VideoResolution; 
-nBands = colorVid.NumberOfBands; 
-% create placeholder image which matches source
-hImage = image( zeros(vidRes(2), vidRes(1), nBands) );
-preview(colorVid, hImage); 
-
-
-
-% --- Executes on button press in stop_kinect_pushbutton.
-function stop_kinect_pushbutton_Callback(hObject, eventdata, handles)
-% hObject    handle to stop_kinect_pushbutton (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-
-% --- Executes on button press in exit_pushbutton.
-function exit_pushbutton_Callback(hObject, eventdata, handles)
-% hObject    handle to exit_pushbutton (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
 
 
 % --- Executes when user attempts to close kinect_gui.
