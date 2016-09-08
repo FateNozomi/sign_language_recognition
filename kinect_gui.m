@@ -22,7 +22,7 @@ function varargout = kinect_gui(varargin)
 
 % Edit the above text to modify the response to help kinect_gui
 
-% Last Modified by GUIDE v2.5 07-Sep-2016 23:02:59
+% Last Modified by GUIDE v2.5 09-Sep-2016 00:18:37
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -71,9 +71,26 @@ hImage = image( zeros(vidRes(2), vidRes(1), nBands) );
 preview(colorVid, hImage);
 
 axes(handles.sign_axes);
-directory = [pwd '\asl_preview\a.png'];
-signA = imread(directory);
-imshow(signA);
+asl_preview_directory = [pwd '\asl_preview'];
+% Select files using a specified pattern
+filePattern = fullfile(asl_preview_directory, '*.png');
+% Lists out all required files which follows the pattern
+reqFiles = dir(filePattern);
+for k = 1 : length(reqFiles)
+    %Index into the structure to access a particular item from reqFiles
+    baseFileName = reqFiles(k).name;
+    %fullfile returns a string containing the full path to the file
+    baseFilePath = fullfile(asl_preview_directory, baseFileName);
+    fprintf(1, 'Accessing %s\n', baseFilePath);
+    %Create cell array S of size() [2,K]
+    %Fills up first row of S with length(reqFiles)
+    handles.S{1,k} = k;
+    %Fills up second row of S imread(baseFilePath)
+    handles.S{2,k} = imread(baseFilePath);
+end
+% converts cell to matrix in order to imshow
+handles.signA = imshow(cell2mat(handles.S(2,1)));
+handles.current_sign = handles.signA;
 
 % Choose default command line output for kinect_gui
 handles.output = hObject;
@@ -94,6 +111,71 @@ function varargout = kinect_gui_OutputFcn(hObject, eventdata, handles)
 
 % Get default command line output from handles structure
 varargout{1} = handles.output;
+
+
+% --- Executes on selection change in alphabet_popupmenu.
+function alphabet_popupmenu_Callback(hObject, eventdata, handles)
+% hObject    handle to alphabet_popupmenu (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: contents = cellstr(get(hObject,'String')) returns alphabet_popupmenu contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from alphabet_popupmenu
+
+val = get(hObject, 'Value');
+str = get(hObject, 'String');
+switch str{val}
+    case 'A'
+        handles.signA = imshow(cell2mat(handles.S(2,1)));
+        handles.current_sign = handles.signA;
+    case 'B'
+        handles.signB = imshow(cell2mat(handles.S(2,2)));
+        handles.current_sign = handles.signB;
+    case 'C'
+        handles.signC = imshow(cell2mat(handles.S(2,3)));
+        handles.current_sign = handles.signC;
+end
+
+% --- Executes during object creation, after setting all properties.
+function alphabet_popupmenu_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to alphabet_popupmenu (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: popupmenu controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on button press in check_sign_pushbutton.
+function check_sign_pushbutton_Callback(hObject, eventdata, handles)
+% hObject    handle to check_sign_pushbutton (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+S = PCA_v2_Kinect_Input_fcn;
+switch handles.current_sign
+    case handles.signA
+        if S == 'A'
+             set(handles.output_text, 'String', 'Correct');
+        else
+            set(handles.output_text, 'String', 'Wrong');
+        end
+    case handles.signB
+        if S == 'B'
+             set(handles.output_text, 'String', 'Correct');
+        else
+            set(handles.output_text, 'String', 'Wrong');
+        end
+    case handles.signC
+        if S == 'C'
+             set(handles.output_text, 'String', 'Correct');
+        else
+            set(handles.output_text, 'String', 'Wrong');
+        end
+end
+
 
 
 % --- Executes when user attempts to close kinect_gui.
