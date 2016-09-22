@@ -135,6 +135,8 @@ switch str{val}
         handles.signC = imshow(cell2mat(handles.S(2,3)));
         handles.current_sign = handles.signC;
 end
+% Update handles structure
+guidata(hObject, handles);
 
 % --- Executes during object creation, after setting all properties.
 function alphabet_popupmenu_CreateFcn(hObject, eventdata, handles)
