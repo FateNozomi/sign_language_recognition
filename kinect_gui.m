@@ -54,21 +54,24 @@ function kinect_gui_OpeningFcn(hObject, eventdata, handles, varargin)
 
 axes(handles.kinect_axes);
 % initialize kinect RGB input
-colorVid = videoinput('kinect',1,'RGB_640x480');
-
-% Create an image object for previewing.
-% http://www.mathworks.com/help/imaq/preview.html
-% Use get(colorVid) to view a complete list of all the properties 
-% supported by a video input object or a video source object
-% VideoResolution of colorVid returns an array of [640 480]
-% vidRes(2) returns the height of colorVid
-% vidRes(1) returns the width of colorVid
-% nBands    returns number of color bands in data to be acquired
-vidRes = colorVid.VideoResolution;
-nBands = colorVid.NumberOfBands;
-% create placeholder image which matches source
-hImage = image( zeros(vidRes(2), vidRes(1), nBands) );
-preview(colorVid, hImage);
+info = imaqhwinfo('kinect');
+if isempty(info.DeviceInfo) ~= 1
+    colorVid = videoinput('kinect',1,'RGB_640x480');
+    
+    % Create an image object for previewing.
+    % http://www.mathworks.com/help/imaq/preview.html
+    % Use get(colorVid) to view a complete list of all the properties
+    % supported by a video input object or a video source object
+    % VideoResolution of colorVid returns an array of [640 480]
+    % vidRes(2) returns the height of colorVid
+    % vidRes(1) returns the width of colorVid
+    % nBands    returns number of color bands in data to be acquired
+    vidRes = colorVid.VideoResolution;
+    nBands = colorVid.NumberOfBands;
+    % create placeholder image which matches source
+    hImage = image( zeros(vidRes(2), vidRes(1), nBands) );
+    preview(colorVid, hImage);
+end
 
 axes(handles.sign_axes);
 asl_preview_directory = [pwd '\asl_preview'];
@@ -156,6 +159,7 @@ function check_sign_pushbutton_Callback(hObject, eventdata, handles)
 % hObject    handle to check_sign_pushbutton (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+set(handles.output_text, 'String', 'Analyzing');
 S = PCA_v2_Kinect_Input_fcn;
 switch handles.current_sign
     case handles.signA
