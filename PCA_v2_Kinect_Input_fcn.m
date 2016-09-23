@@ -1,18 +1,32 @@
-%%%%%%%%%%
-% PCA v2 %
-%%%%%%%%%%
-% Reset
-% clc; clear; close all;
 function alphabetSign = PCA_v2_Kinect_Input_fcn()
-% get 2-D array database
+%PCA_v2_Kinect_Input_fcn Identifies Kinect input ASL
+
+
+if ~exist('S','var')
+    % get 2-D array database
 S = getDatabase;
+end
 
 %%
 %mean image;
 m=mean(S,2);   %obtains the mean of each row instead of each column
 tmimg=double(m);
 
-M=9;
+
+Database = [pwd '\database'];
+% Check if directory exists
+if ~isdir(Database)
+    errorMessage = sprintf('Error; The following directory does not exist: \n%s', Database);
+    uiwait(warndlg(errorMessage));
+    return;
+end
+% Select files using a specified pattern
+filePattern = fullfile(Database, '*.fig');
+% Lists out all required files which follows the pattern
+reqFiles = dir(filePattern);
+
+
+M = length(reqFiles);
 dbx=[];
 for i=1:M
     temp=double(S(:,i))-tmimg;
@@ -88,13 +102,16 @@ end
 %find(diff==min(diff))
 %diff
 %Recog [A B C]
-finalDiff = [sum(diff(:,1:3)) sum(diff(:,4:6)) sum(diff(:,7:9))]
-minDiffPos = find(finalDiff==min(finalDiff));
-
-alphabetList = ('A':'C');
-minDiff = finalDiff(:,minDiffPos);
-if minDiff<1.65e+11
-    alphabetSign = alphabetList(:,minDiffPos)
-else
-    alphabetSign = 'Unknown'
+finalDiff2=[];
+for i=1:3:length(reqFiles)
+    difference = sum(diff(:,i:i+2));
+    finalDiff2 = [finalDiff2 difference];
 end
+
+finalDiff2
+%finalDiff = [sum(diff(:,1:3)) sum(diff(:,4:6)) sum(diff(:,7:9))]
+minDiffPos = find(finalDiff2==min(finalDiff2));
+
+alphabetList = ['A':'I' 'K':'Y'];
+minDiff = finalDiff2(:,minDiffPos);
+alphabetSign = alphabetList(:,minDiffPos)
