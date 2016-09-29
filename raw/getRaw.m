@@ -6,7 +6,7 @@ info = imaqhwinfo('kinect');
 % info.DeviceInfo(1)
 % colorVid = videoinput('kinect',1,'RGB_640x480');
 % preview(colorVid);
-% 
+%
 % RGBImage = getsnapshot(colorVid);
 % imshow(RGBImage);
 
@@ -18,13 +18,14 @@ preview(depthVid);
 i = 0;
 for k = 'z'
     for i = 1:4
-    input('Press Enter to proceed\n');
-    FileName = [k int2str(i)];
-    fprintf(1, 'Capturing %s in 2 seconds\n', FileName);
-    pause(2);
-    depthImage = getsnapshot(depthVid);
-    imshow(depthImage, [0 4000])
-    savefig(FileName);
-    fprintf(1, 'Saving figure: %s\n', FileName);
+        %input('Press Enter to proceed\n');
+        FileName = [k int2str(i)];
+        disp('Press a key !')
+        fprintf(1, 'Capturing %s in 5 seconds\n', FileName);
+        pause(5);
+        depthImage = getsnapshot(depthVid);
+        imshow(depthImage, [0 4000])
+        savefig(FileName);
+        fprintf(1, 'Saving figure: %s\n', FileName);
     end
 end
