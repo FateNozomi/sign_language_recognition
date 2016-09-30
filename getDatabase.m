@@ -31,33 +31,9 @@ for k = 1 : length(reqFiles)
     imTemp2=findobj(imTemp1,'type','image');
     I=imTemp2.CData;
     
-    % Crop the depth images
-    R = 0;
-    for m = 1 : size(I,1); %Row 1 to 480 (I=480x640)
-        Var1 = double(I(m,1));
-        Var2 = double(size(I,2));
-        mRow = Var1*Var2;
-        R = R + 1;
-        if mRow > sum(I(m,:))
-            break
-        end
-    end
-    
-    C = 0;
-    for n = 1 : size(I,2); % Column 1 to 640 (I=480x640)
-        Var1 = double(I(n,1));
-        Var2 = double(size(I,1));
-        nRow = Var1*Var2;
-        C = C + 1;
-        if nRow > sum(I(:,n))
-            break
-        end
-    end
-    Z = I(R:R+119,C:C+79);
+    Z = cropImage(I);
     [irow,icol]=size(Z);
     % Reshape a 640-by-480 matrix into a matrix that has only 1 column
     Z=reshape(Z,irow*icol,1);
     S=[S Z];
-    
-end % function S
-
+end
