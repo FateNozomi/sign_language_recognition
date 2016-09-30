@@ -35,49 +35,28 @@ w=FD'*dbx;
 %%%%%%%%%%%%%%%%%%%%%%%%%
 %  input unknown image  %
 
-unknownSample = fullfile([pwd '\sample'], 'u4.fig');
+unknownSample = fullfile([pwd '\sample'], 'a4.fig');
 imTemp1=openfig(unknownSample,'invisible');
 fprintf(1, '\nIdentifiying unknown sample %s\n', unknownSample);
 imTemp2=findobj(imTemp1,'type','image');
 I=imTemp2.CData;
 
-% Normalize unknown input
-%
-%Change all 0 noise to 4000 white
-I(I<1)=4000;
-%make pixel more than min+100 to become 0
-offset=min(min(I))+100;
-I(I>offset)=0;
-%make all zeroes to be 4000
-I(I<1)=4000;
-%offset all values by the minimum value
-I=I-min(min(I));
-%show normalize image
-figure;imshow(I, [0 4000]);
+% SEGMENT OUT THE HAND
+%make a copy of the original image
+I2=I;
 
-% Crop Unknown Sample Image
-R = 0;
-for m = 1 : size(I,1); %Row 1 to 480 (I=480x640)
-    Var1 = double(I(m,1));
-    Var2 = double(size(I,2));
-    mRow = Var1*Var2;
-    R = R + 1;
-    if mRow > sum(I(m,:))
-        break
-    end
-end
+% Replace pixel value 0 to 4000. This prevents 0 from being the minimum value
+I2((I2<=0))=4000;
 
-C = 0;
-for n = 1 : size(I,2); % Column 1 to 640 (I=480x640)
-    Var1 = double(I(n,1));
-    Var2 = double(size(I,1));
-    nRow = Var1*Var2;
-    C = C + 1;
-    if nRow > sum(I(:,n))
-        break
-    end
-end
-Z = I(R:R+119,C:C+79);
+% Minus all values in array I2 by the minimum value of itself
+I2=I2-min(min(I2));
+
+% Readjust values above 80 to 4000.
+I2((I2>80))=4000;
+
+I = I2;
+
+Z= cropImage(I);
 [irow,icol]=size(Z);
 % Reshape a 640-by-480 matrix into a matrix that has only 1 column
 Z=reshape(Z,irow*icol,1);
