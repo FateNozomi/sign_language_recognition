@@ -20,7 +20,6 @@ for k = 'z'
     for i = 1:4
         %input('Press Enter to proceed\n');
         FileName = [k int2str(i)];
-        disp('Press a key !')
         fprintf(1, 'Capturing %s in 5 seconds\n', FileName);
         pause(5);
         depthImage = getsnapshot(depthVid);
