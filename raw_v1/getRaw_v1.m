@@ -22,7 +22,7 @@ end
 %% Save png and fig
 i = 0;
 for k = 'z'
-    for i = 1:4
+    for i = 1:7
         %input('Press Enter to proceed\n');
         FileName = [k int2str(i)];
         fprintf(1, 'Capturing %s in 3 seconds\n', FileName);
