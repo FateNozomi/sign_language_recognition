@@ -14,7 +14,7 @@ if ~isdir(raw)
 end
 
 i = 0;
-for k = 'a':'i'
+for k = 'y'
     for i = 1:6
         FileName = [k int2str(i) '.fig'];
         baseFilePath = fullfile(raw, FileName);
@@ -38,7 +38,7 @@ for k = 'a':'i'
         I2=I2-min(min(I2));
         
         % Readjust values above 70 to 4000.
-        I2((I2>70))=4000;
+        I2((I2>80))=4000;
         
         imshow(I2, [0 4000]);
         
