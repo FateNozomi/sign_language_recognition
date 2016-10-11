@@ -38,7 +38,9 @@ w=FD'*dbx;
 fprintf(1, '\nSnapshot in 3 seconds\n');
 pause(3);
 fprintf(1, '\nIdentifiying unknown sample\n');
-depthVid = videoinput ('kinect',2,'Depth_640x480');
+if ~exist('depthVid','var')
+    depthVid = videoinput ('kinect',2,'Depth_640x480');
+end
 
 I = getsnapshot(depthVid);
 
