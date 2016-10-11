@@ -52,7 +52,7 @@ I2((I2<=0))=4000;
 I2=I2-min(min(I2));
 
 % Readjust values above 70 to 4000.
-I2((I2>70))=4000;
+I2((I2>80))=4000;
 
 I = I2;
 
