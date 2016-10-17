@@ -14,7 +14,7 @@ if ~isdir(raw)
 end
 
 i = 0;
-for k = 'y'
+for k = 'z'
     for i = 1:6
         FileName = [k int2str(i) '.fig'];
         baseFilePath = fullfile(raw, FileName);
