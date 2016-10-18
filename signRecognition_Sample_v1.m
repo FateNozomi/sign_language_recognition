@@ -35,7 +35,7 @@ w=FD'*dbx;
 %%%%%%%%%%%%%%%%%%%%%%%%%
 %  input unknown image  %
 
-unknownSample = fullfile([pwd '\sample_v1'], 'y7.fig');
+unknownSample = fullfile([pwd '\sample_v1'], 'b7.fig');
 imTemp1=openfig(unknownSample,'invisible');
 fprintf(1, '\nIdentifiying unknown sample %s\n', unknownSample);
 imTemp2=findobj(imTemp1,'type','image');
