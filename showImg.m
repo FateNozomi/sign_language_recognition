@@ -1,5 +1,5 @@
 
-Database = [pwd '\database_v1'];
+Database = [pwd '\raw_v1'];
 % Check if directory exists
 if ~isdir(Database)
     errorMessage = sprintf('Error; The following directory does not exist: \n%s', Database);
@@ -9,7 +9,7 @@ end
 
 i = 0;
 S = [];
-for k = 'a'
+for k = 'd'
     for i = 1:6
         FileName = [k int2str(i) '.fig'];
         baseFilePath = fullfile(Database, FileName);
@@ -28,5 +28,5 @@ for imgPos = 1:(640-1):(width - 640 -1)
     n = n + 1;
     newImg = S(:,imgPos:imgPos+640-1);
     sub = subaxis(3,3,n, 'Spacing', 0, 'Padding', 0, 'Margin', 0);
-    imshow(I, [0 80]);
+    imshow(newImg, [0 4000]);
 end
