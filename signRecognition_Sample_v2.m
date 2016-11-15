@@ -35,7 +35,7 @@ w=FD'*dbx;
 %%%%%%%%%%%%%%%%%%%%%%%%%
 %  input unknown image  %
 
-unknownSample = fullfile([pwd '\sample_v2'], 'y11.fig');
+unknownSample = fullfile([pwd '\sample_v2'], 'p11.fig');
 imTemp1=openfig(unknownSample,'invisible');
 fprintf(1, '\nIdentifiying unknown sample %s\n', unknownSample);
 imTemp2=findobj(imTemp1,'type','image');
@@ -76,7 +76,7 @@ end
 %Recog [A B C]
 finalDiff=[];
 for i=1:10:length(reqFiles)
-    difference = sum(diff(:,i:i+5));
+    difference = sum(diff(:,i:i+9));
     finalDiff = [finalDiff difference];
 end
 

@@ -79,7 +79,7 @@ end
 %Recog [A B C]
 finalDiff=[];
 for i=1:10:length(reqFiles)
-    difference = sum(diff(:,i:i+5));
+    difference = sum(diff(:,i:i+9));
     finalDiff = [finalDiff difference];
 end
 
