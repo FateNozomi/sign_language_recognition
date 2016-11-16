@@ -27,7 +27,7 @@ Xcentered2 = score2*coeff2';
 PCA_DatabaseClosed = score2'*Xcentered2;
 
 
-% Test unknown sample image
+%%% Test unknown sample image
 unknownSample = fullfile([pwd '\sample_v2'], 'y11.fig');
 fprintf(1, '\nIdentifiying unknown sample %s\n', unknownSample);
 HandRightState = 1;
@@ -35,20 +35,16 @@ imTemp1 = openfig(unknownSample,'invisible');
 imTemp2 = findobj(imTemp1,'type','image');
 I = imTemp2.CData;
 
-% SEGMENT OUT THE HAND
-% make a copy of the original image
-I2 = I;
+%%% SEGMENT OUT THE HAND
+%%Normalize
+% Replace depth value 0 to 4000. This eliminates IR shadow
+I((I<=0)) = 4000;
+% Minus all values in array I by the minimum value of itself
+I = I - min(min(I));
 
-% Replace pixel value 0 to 4000. This prevents 0 from being the minimum value
-I2((I2<=0)) = 4000;
-
-% Minus all values in array I2 by the minimum value of itself
-I2 = I2 - min(min(I2));
-
-% Readjust values above 80 to 4000.
-I2((I2>90)) = 4000;
-
-I = I2;
+%%Segmentation
+% Readjust values above 90 to 4000.
+I((I>90)) = 4000;
 
 if HandRightState == 3
     Z = cropImage_v2_1(I);
