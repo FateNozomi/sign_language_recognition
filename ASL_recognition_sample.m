@@ -1,12 +1,12 @@
 % ASL_recognition_sample
 
-% Call getDatabase_v2_1 if database does not exist
+% Load database.mat if database does not exist
 if ~exist('database','var')
     % get 2-D array database
-    database = getDatabase_v2_2;
+    load('database.mat');
 end
 
-% Get databaseState and databaseState3
+% Get databaseOpen and databaseClosed
 databaseOpen = database{1};
 databaseClosed = database{2};
 
@@ -28,7 +28,7 @@ PCA_DatabaseClosed = score2'*Xcentered2;
 
 
 %%% Test unknown sample image
-unknownSample = fullfile([pwd '\sample_v2'], 'y11.fig');
+unknownSample = fullfile([pwd '\sample'], 'c11.fig');
 fprintf(1, '\nIdentifiying unknown sample %s\n', unknownSample);
 HandRightState = 1;
 imTemp1 = openfig(unknownSample,'invisible');
@@ -41,15 +41,15 @@ I = imTemp2.CData;
 I((I<=0)) = 4000;
 % Minus all values in array I by the minimum value of itself
 I = I - min(min(I));
-
 %%Segmentation
 % Readjust values above 90 to 4000.
 I((I>90)) = 4000;
 
+% Check HandRightState to determine which cropping algorithm to use
 if HandRightState == 3
-    Z = cropImage_v2_1(I);
+    Z = cropImage_Closed(I);
 else
-    Z = cropImage_v2(I);
+    Z = cropImage_Open(I);
 end
 
 figure;imshow(Z, [0 100]);
@@ -60,6 +60,7 @@ Z=reshape(Z,irow*icol,1);
 Z=double(Z);
 Z=Z-mean(Z);
 
+% Check HandRightState to determine which database to use
 if HandRightState == 3
     PCA_DatabaseClosedUnknown = score2'*Z;
     

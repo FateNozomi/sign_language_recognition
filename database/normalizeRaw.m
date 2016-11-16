@@ -14,8 +14,8 @@ if ~isdir(raw)
 end
 
 i = 0;
-for k = 'a':'i'
-    for i = 1:3
+for k = ['a' 'e' 'm' 'n' 's' 't']
+    for i = 1:10
         FileName = [k int2str(i) '.fig'];
         baseFilePath = fullfile(raw, FileName);
         fprintf(1, 'Accessing figure: %s\n', baseFilePath);
@@ -23,8 +23,6 @@ for k = 'a':'i'
         iTemp2=findobj(iTemp1,'type','image');
         I=iTemp2.CData;
         
-        % figure;imshow(I);
-        % figure;imshow(I,[min(min(I)) max(max(I))]);
         imshow(I, [0 4000]);
         
         % SEGMENT OUT THE HAND
@@ -37,13 +35,14 @@ for k = 'a':'i'
         % Minus all values in array I2 by the minimum value of itself
         I2=I2-min(min(I2));
         
-        % Readjust values above 80 to 4000.
-        I2((I2>80))=4000;
+        % Readjust values above 90 to 4000.
+        I2((I2>90)) = 4000;
         
-        imshow(I2, [0 4000]);
+        imshow(I2, [0 90]);
         
         % Save as a new figure
         fprintf(1, 'Saving figure: %s\n', FileName);
         savefig(FileName);
+        close;
     end
 end
