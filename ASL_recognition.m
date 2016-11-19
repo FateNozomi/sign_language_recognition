@@ -1,12 +1,11 @@
 function alphabetSign = ASL_recognition(HandRightState, inputImage)
 %ASL_recognition This recognition algorithm takes in 2 variables: HandRightState and sample image
 %
-% 2
 
 % Load database.mat if database does not exist
 if ~exist('database','var')
     % get 2-D array database
-    load('database.mat');
+    load('database_r1.mat');
 end
 
 % Get databaseOpen and databaseClosed
@@ -93,7 +92,7 @@ else
     
     minDiffPos = find(finalDiff==min(finalDiff));
     
-    alphabetList = ['B':'D' 'F':'I' 'K':'L' 'O':'R' 'U':'Y'];
+    alphabetList = ['B':'D' 'E':'I' 'K':'L' 'O':'R' 'U':'Y'];
     minDiff = finalDiff(:,minDiffPos);
     alphabetSign = alphabetList(:,minDiffPos);
 end

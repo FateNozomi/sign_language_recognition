@@ -21,8 +21,8 @@ filePattern = fullfile(raw, '*.fig');
 reqFiles = dir(filePattern);
 % Define empty matrix S, prevents "Undefined function or variable." error
 databaseStateOpen = [];
-state = [11:40 51:110 131:170 191:240];
-for k = 1 : 180
+state = [11:40 41:110 131:170 191:240];
+for k = 1 : length(state)
     %Index into the structure to access a particular item from reqFiles
     baseFileName = reqFiles(state(k)).name;
     %fullfile returns a string containing the full path to the file
@@ -55,7 +55,7 @@ end
 % For ['A' 'E' 'M' 'N' 'S' 'T']
 databaseStateClosed = [];
 state3 = [1:10 41:50 111:130 171:190];
-for k = 1 : 60
+for k = 1 : length(state3)
     %Index into the structure to access a particular item from reqFiles
     baseFileName = reqFiles(state3(k)).name;
     %fullfile returns a string containing the full path to the file
