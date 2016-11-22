@@ -53,24 +53,41 @@ function kinect_gui_OpeningFcn(hObject, eventdata, handles, varargin)
 % varargin   command line arguments to kinect_gui (see VARARGIN)
 
 axes(handles.kinect_axes);
-% initialize kinect RGB input
-info = imaqhwinfo('kinect');
-if isempty(info.DeviceInfo) ~= 1
-    colorVid = videoinput('kinect',1,'RGB_640x480');
-    
-    % Create an image object for previewing.
-    % http://www.mathworks.com/help/imaq/preview.html
-    % Use get(colorVid) to view a complete list of all the properties
-    % supported by a video input object or a video source object
-    % VideoResolution of colorVid returns an array of [640 480]
-    % vidRes(2) returns the height of colorVid
-    % vidRes(1) returns the width of colorVid
-    % nBands    returns number of color bands in data to be acquired
-    vidRes = colorVid.VideoResolution;
-    nBands = colorVid.NumberOfBands;
-    % create placeholder image which matches source
-    hImage = image( zeros(vidRes(2), vidRes(1), nBands) );
-    preview(colorVid, hImage);
+gui_directory = [pwd '\GUI'];
+baseFileName = 'grey.jpg';
+baseFilePath = fullfile(gui_directory,baseFileName);
+placeholderImg = imread(baseFilePath);
+imshow(placeholderImg);
+% % initialize kinect RGB input
+% info = imaqhwinfo('kinect');
+% if isempty(info.DeviceInfo) ~= 1
+%     colorVid = videoinput('kinect',1,'RGB_640x480');
+%     
+%     % Create an image object for previewing.
+%     % http://www.mathworks.com/help/imaq/preview.html
+%     % Use get(colorVid) to view a complete list of all the properties
+%     % supported by a video input object or a video source object
+%     % VideoResolution of colorVid returns an array of [640 480]
+%     % vidRes(2) returns the height of colorVid
+%     % vidRes(1) returns the width of colorVid
+%     % nBands    returns number of color bands in data to be acquired
+%     vidRes = colorVid.VideoResolution;
+%     nBands = colorVid.NumberOfBands;
+%     % create placeholder image which matches source
+%     hImage = image( zeros(vidRes(2), vidRes(1), nBands) );
+%     preview(colorVid, hImage);
+% end
+
+%Hand Tracking
+imaqreset
+
+% Create color and depth kinect videoinput objects.
+if ~exist('handles.colorVid','var')
+    handles.colorVid = videoinput('kinect', 1);
+end
+
+if ~exist('handles.depthVid','var')
+    handles.depthVid = videoinput('kinect', 2);
 end
 
 axes(handles.sign_axes);
@@ -129,79 +146,81 @@ val = get(hObject, 'Value');
 str = get(hObject, 'String');
 switch str{val}
     case 'A'
-        handles.signA = imshow(cell2mat(handles.S(2,1)));
+        handles.signA = imshow(cell2mat(handles.S(2,1)), 'Parent', handles.sign_axes);
         handles.current_sign = handles.signA;
     case 'B'
-        handles.signB = imshow(cell2mat(handles.S(2,2)));
+        handles.signB = imshow(cell2mat(handles.S(2,2)), 'Parent', handles.sign_axes);
         handles.current_sign = handles.signB;
     case 'C'
-        handles.signC = imshow(cell2mat(handles.S(2,3)));
+        handles.signC = imshow(cell2mat(handles.S(2,3)), 'Parent', handles.sign_axes);
         handles.current_sign = handles.signC;
     case 'D'
-        handles.signD = imshow(cell2mat(handles.S(2,4)));
+        handles.signD = imshow(cell2mat(handles.S(2,4)), 'Parent', handles.sign_axes);
         handles.current_sign = handles.signD;
     case 'E'
-        handles.signE = imshow(cell2mat(handles.S(2,5)));
+        handles.signE = imshow(cell2mat(handles.S(2,5)), 'Parent', handles.sign_axes);
         handles.current_sign = handles.signE;
     case 'F'
-        handles.signF = imshow(cell2mat(handles.S(2,6)));
+        handles.signF = imshow(cell2mat(handles.S(2,6)), 'Parent', handles.sign_axes);
         handles.current_sign = handles.signF;
     case 'G'
-        handles.signG = imshow(cell2mat(handles.S(2,7)));
+        handles.signG = imshow(cell2mat(handles.S(2,7)), 'Parent', handles.sign_axes);
         handles.current_sign = handles.signG;
     case 'H'
-        handles.signH = imshow(cell2mat(handles.S(2,8)));
+        handles.signH = imshow(cell2mat(handles.S(2,8)), 'Parent', handles.sign_axes);
         handles.current_sign = handles.signH;
     case 'I'
-        handles.signI = imshow(cell2mat(handles.S(2,9)));
+        handles.signI = imshow(cell2mat(handles.S(2,9)), 'Parent', handles.sign_axes);
         handles.current_sign = handles.signI;
     case 'K'
-        handles.signK = imshow(cell2mat(handles.S(2,11)));
+        handles.signK = imshow(cell2mat(handles.S(2,11), 'Parent', handles.sign_axes));
         handles.current_sign = handles.signK;
     case 'L'
-        handles.signL = imshow(cell2mat(handles.S(2,12)));
+        handles.signL = imshow(cell2mat(handles.S(2,12)), 'Parent', handles.sign_axes);
         handles.current_sign = handles.signL;
     case 'M'
-        handles.signM = imshow(cell2mat(handles.S(2,13)));
+        handles.signM = imshow(cell2mat(handles.S(2,13)), 'Parent', handles.sign_axes);
         handles.current_sign = handles.signM;
     case 'N'
-        handles.signN = imshow(cell2mat(handles.S(2,14)));
+        handles.signN = imshow(cell2mat(handles.S(2,14)), 'Parent', handles.sign_axes);
         handles.current_sign = handles.signN;
     case 'O'
-        handles.signO = imshow(cell2mat(handles.S(2,15)));
+        handles.signO = imshow(cell2mat(handles.S(2,15)), 'Parent', handles.sign_axes);
         handles.current_sign = handles.signO;
     case 'P'
-        handles.signP = imshow(cell2mat(handles.S(2,16)));
+        handles.signP = imshow(cell2mat(handles.S(2,16)), 'Parent', handles.sign_axes);
         handles.current_sign = handles.signP;
     case 'Q'
-        handles.signQ = imshow(cell2mat(handles.S(2,17)));
+        handles.signQ = imshow(cell2mat(handles.S(2,17)), 'Parent', handles.sign_axes);
         handles.current_sign = handles.signQ;
     case 'R'
-        handles.signR = imshow(cell2mat(handles.S(2,18)));
+        handles.signR = imshow(cell2mat(handles.S(2,18)), 'Parent', handles.sign_axes);
         handles.current_sign = handles.signR;
     case 'S'
-        handles.signS = imshow(cell2mat(handles.S(2,19)));
+        handles.signS = imshow(cell2mat(handles.S(2,19)), 'Parent', handles.sign_axes);
         handles.current_sign = handles.signS;
     case 'T'
-        handles.signT = imshow(cell2mat(handles.S(2,20)));
+        handles.signT = imshow(cell2mat(handles.S(2,20)), 'Parent', handles.sign_axes);
         handles.current_sign = handles.signT;
     case 'U'
-        handles.signU = imshow(cell2mat(handles.S(2,21)));
+        handles.signU = imshow(cell2mat(handles.S(2,21)), 'Parent', handles.sign_axes);
         handles.current_sign = handles.signU;
     case 'V'
-        handles.signV = imshow(cell2mat(handles.S(2,22)));
+        handles.signV = imshow(cell2mat(handles.S(2,22)), 'Parent', handles.sign_axes);
         handles.current_sign = handles.signV;
     case 'W'
-        handles.signW = imshow(cell2mat(handles.S(2,23)));
+        handles.signW = imshow(cell2mat(handles.S(2,23)), 'Parent', handles.sign_axes);
         handles.current_sign = handles.signW;
     case 'X'
-        handles.signX = imshow(cell2mat(handles.S(2,24)));
+        handles.signX = imshow(cell2mat(handles.S(2,24)), 'Parent', handles.sign_axes);
         handles.current_sign = handles.signX;
     case 'Y'
-        handles.signY = imshow(cell2mat(handles.S(2,25)));
+        handles.signY = imshow(cell2mat(handles.S(2,25)), 'Parent', handles.sign_axes);
         handles.current_sign = handles.signY;
         
 end
+drawnow();
+
 % Update handles structure
 guidata(hObject, handles);
 
@@ -224,7 +243,118 @@ function check_sign_pushbutton_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 set(handles.output_text, 'String', 'Analyzing');
-S = PCA_v2_Kinect_Input_fcn;
+
+colorVid = handles.colorVid;
+depthVid = handles.depthVid;
+
+% Look at the device-specific properties on the depth source device,
+% which is the depth sensor on the Kinect V2.
+% Set 'EnableBodyTracking' to on, so that the depth sensor will
+% return body tracking metadata along with the depth frame.
+depthSource = getselectedsource(depthVid);
+depthSource.EnableBodyTracking = 'on';
+
+% Set triggerconfig to manual and repeat inf
+triggerconfig(depthVid, 'manual');
+depthVid.FramesPerTrigger = 1;
+depthVid.TriggerRepeat = inf;
+triggerconfig(colorVid, 'manual');
+colorVid.FramesPerTrigger = 1;
+colorVid.TriggerRepeat = inf;
+
+% Start the depth and color acquisition objects.
+% This begins acquisition, but does not start logging of acquired data.
+pause(5);
+start([depthVid colorVid]);
+
+% Start handle image variable
+% Initialize snapshotCounter variable
+himg = 1;
+snapshotCounter = 0;
+
+% Marker colors for up to 6 bodies.
+colors = ['r';'g';'b';'c';'y';'m'];
+
+% Initialize save counter
+i = 0;
+
+% Set to kinect_axes
+axes(handles.kinect_axes);
+
+while himg == 1
+    trigger(depthVid);
+    trigger(colorVid);
+    
+    % Get images and metadata from the color and depth device objects.
+    [colorImg] = getdata(colorVid);
+    [depthMap, ~, depthMetaData] = getdata(depthVid);
+    
+    % Find the indexes of the tracked bodies.
+    anyBodiesTracked = any(depthMetaData.IsBodyTracked ~= 0);
+    trackedBodies = find(depthMetaData.IsBodyTracked);
+    
+    % Find number of Skeletons tracked.
+    nBodies = length(trackedBodies);
+    
+    imshow(depthMap, [0 4096], 'Parent', handles.kinect_axes);
+    
+    if (trackedBodies ~= 0)
+        rightHand = depthMetaData.DepthJointIndices(12,:,trackedBodies);
+        rightThumb = depthMetaData.DepthJointIndices(25,:,trackedBodies);
+        
+        % Get right hand depth value for all tracked bodies
+        rightHandDepthMulti = [];
+        for body = 1:nBodies
+            if rightHand(1,1,body) > 512
+                rightHand(1,1,body) = 512;
+            end
+            
+            if rightHand(1,2,body) > 424
+                rightHand(1,2,body) = 424;
+            end
+            rightHandDepthM = depthMap(round(rightHand(1,2,body)),round(rightHand(1,1,body)));
+            rightHandDepthMulti = [rightHandDepthMulti rightHandDepthM];
+        end
+        
+        % Only track the lowest right hand depth value / closest hand
+        [rightHandDepth,nearestHand] = min(rightHandDepthMulti);
+        
+        rightHandDepth;
+        rightHandState = depthMetaData.HandRightState;
+        rightHandState = rightHandState(trackedBodies(nearestHand));
+        
+        
+        X1 = [round(rightHand(1,1,nearestHand)) round(rightThumb(1,1,nearestHand))];
+        Y1 = [round(rightHand(1,2,nearestHand)) round(rightThumb(1,2,nearestHand))];
+        line(X1,Y1, 'LineWidth', 1.5, 'LineStyle', '-', 'Marker', '+', 'Color', 'r');
+        
+        if rightHandDepth > 700
+            rightHandBorder = [rightHand(:,:,nearestHand)-80 160 160];
+            rectangle('position', rightHandBorder, 'EdgeColor', 'y', 'LineWidth', 3);
+        elseif rightHandDepth < 600
+            rightHandBorder = [rightHand(:,:,nearestHand)-80 160 160];
+            rectangle('position', rightHandBorder, 'EdgeColor', 'r', 'LineWidth', 3);
+        elseif rightHandDepth <700
+            rightHandBorder = [rightHand(:,:,nearestHand)-80 160 160];
+            rectangle('position', rightHandBorder, 'EdgeColor', 'g', 'LineWidth', 3);
+            snapshotCounter = snapshotCounter + 1;
+        end
+        
+        if snapshotCounter == 3
+            i = i + 1;
+            inputImage = imcrop(depthMap, [rightHand(:,:,nearestHand)-80 160 160]);
+            S = ASL_recognition(rightHandState, inputImage)
+            % Reset snapshotCounter
+            snapshotCounter = 0;
+            himg = 2;
+            close;
+        end
+    
+    end
+end
+stop(depthVid);
+stop(colorVid);
+
 switch handles.current_sign
     case handles.signA
         if S == 'A'
@@ -371,6 +501,9 @@ switch handles.current_sign
             set(handles.output_text, 'String', 'Wrong');
         end
 end
+
+% Update handles structure
+guidata(hObject, handles);
 
 
 
