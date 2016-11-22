@@ -1,35 +1,35 @@
-function varargout = kinect_gui(varargin)
-% KINECT_GUI MATLAB code for kinect_gui.fig
-%      KINECT_GUI, by itself, creates a new KINECT_GUI or raises the existing
+function varargout = ASL_Recognition_System(varargin)
+% ASL_RECOGNITION_SYSTEM MATLAB code for ASL_Recognition_System.fig
+%      ASL_RECOGNITION_SYSTEM, by itself, creates a new ASL_RECOGNITION_SYSTEM or raises the existing
 %      singleton*.
 %
-%      H = KINECT_GUI returns the handle to a new KINECT_GUI or the handle to
+%      H = ASL_RECOGNITION_SYSTEM returns the handle to a new ASL_RECOGNITION_SYSTEM or the handle to
 %      the existing singleton*.
 %
-%      KINECT_GUI('CALLBACK',hObject,eventData,handles,...) calls the local
-%      function named CALLBACK in KINECT_GUI.M with the given input arguments.
+%      ASL_RECOGNITION_SYSTEM('CALLBACK',hObject,eventData,handles,...) calls the local
+%      function named CALLBACK in ASL_RECOGNITION_SYSTEM.M with the given input arguments.
 %
-%      KINECT_GUI('Property','Value',...) creates a new KINECT_GUI or raises the
+%      ASL_RECOGNITION_SYSTEM('Property','Value',...) creates a new ASL_RECOGNITION_SYSTEM or raises the
 %      existing singleton*.  Starting from the left, property value pairs are
-%      applied to the GUI before kinect_gui_OpeningFcn gets called.  An
+%      applied to the GUI before ASL_Recognition_System_OpeningFcn gets called.  An
 %      unrecognized property name or invalid value makes property application
-%      stop.  All inputs are passed to kinect_gui_OpeningFcn via varargin.
+%      stop.  All inputs are passed to ASL_Recognition_System_OpeningFcn via varargin.
 %
 %      *See GUI Options on GUIDE's Tools menu.  Choose "GUI allows only one
 %      instance to run (singleton)".
 %
 % See also: GUIDE, GUIDATA, GUIHANDLES
 
-% Edit the above text to modify the response to help kinect_gui
+% Edit the above text to modify the response to help ASL_Recognition_System
 
-% Last Modified by GUIDE v2.5 09-Sep-2016 00:18:37
+% Last Modified by GUIDE v2.5 22-Nov-2016 18:52:20
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
 gui_State = struct('gui_Name',       mfilename, ...
     'gui_Singleton',  gui_Singleton, ...
-    'gui_OpeningFcn', @kinect_gui_OpeningFcn, ...
-    'gui_OutputFcn',  @kinect_gui_OutputFcn, ...
+    'gui_OpeningFcn', @ASL_Recognition_System_OpeningFcn, ...
+    'gui_OutputFcn',  @ASL_Recognition_System_OutputFcn, ...
     'gui_LayoutFcn',  [] , ...
     'gui_Callback',   []);
 if nargin && ischar(varargin{1})
@@ -44,13 +44,13 @@ end
 % End initialization code - DO NOT EDIT
 
 
-% --- Executes just before kinect_gui is made visible.
-function kinect_gui_OpeningFcn(hObject, eventdata, handles, varargin)
+% --- Executes just before ASL_Recognition_System is made visible.
+function ASL_Recognition_System_OpeningFcn(hObject, eventdata, handles, varargin)
 % This function has no output args, see OutputFcn.
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-% varargin   command line arguments to kinect_gui (see VARARGIN)
+% varargin   command line arguments to ASL_Recognition_System (see VARARGIN)
 
 axes(handles.kinect_axes);
 gui_directory = [pwd '\GUI'];
@@ -111,18 +111,18 @@ end
 % converts cell to matrix in order to imshow
 handles.signA = imshow(cell2mat(handles.S(2,1)));
 
-% Choose default command line output for kinect_gui
+% Choose default command line output for ASL_Recognition_System
 handles.output = hObject;
 
 % Update handles structure
 guidata(hObject, handles);
 
-% UIWAIT makes kinect_gui wait for user response (see UIRESUME)
-% uiwait(handles.kinect_gui);
+% UIWAIT makes ASL_Recognition_System wait for user response (see UIRESUME)
+% uiwait(handles.ASL_Recognition_System);
 
 
 % --- Outputs from this function are returned to the command line.
-function varargout = kinect_gui_OutputFcn(hObject, eventdata, handles)
+function varargout = ASL_Recognition_System_OutputFcn(hObject, eventdata, handles)
 % varargout  cell array for returning output args (see VARARGOUT);
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -479,9 +479,9 @@ end
 
 
 
-% --- Executes when user attempts to close kinect_gui.
+% --- Executes when user attempts to close ASL_Recognition_System.
 function kinect_gui_CloseRequestFcn(hObject, eventdata, handles)
-% hObject    handle to kinect_gui (see GCBO)
+% hObject    handle to ASL_Recognition_System (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
