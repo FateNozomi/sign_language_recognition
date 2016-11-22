@@ -3,7 +3,7 @@
 % Load database.mat if database does not exist
 if ~exist('database','var')
     % get 2-D array database
-    load('database.mat');
+    load('database_v1.mat');
 end
 
 % Get databaseOpen and databaseClosed
@@ -28,7 +28,7 @@ PCA_DatabaseClosed = score2'*Xcentered2;
 
 
 %%% Test unknown sample image
-unknownSample = fullfile([pwd '\sample'], 'c11.fig');
+unknownSample = fullfile([pwd '\sample_v1'], 'y11.fig');
 fprintf(1, '\nIdentifiying unknown sample %s\n', unknownSample);
 HandRightState = 1;
 imTemp1 = openfig(unknownSample,'invisible');
@@ -74,8 +74,6 @@ if HandRightState == 3
         finalDiff = [finalDiff temp2];
     end
     
-    finalDiff
-    
     minDiffPos = find(finalDiff==min(finalDiff));
     
     alphabetList = ['A' 'E' 'M' 'N' 'S' 'T'];
@@ -95,11 +93,9 @@ else
         finalDiff = [finalDiff temp2];
     end
     
-    finalDiff
-    
     minDiffPos = find(finalDiff==min(finalDiff));
     
-    alphabetList = ['B':'D' 'F':'I' 'K':'L' 'O':'R' 'U':'Y'];
+    alphabetList = ['B':'D' 'E':'I' 'K':'L' 'O':'R' 'U':'Y'];
     minDiff = finalDiff(:,minDiffPos);
     alphabetSign = alphabetList(:,minDiffPos)
 end

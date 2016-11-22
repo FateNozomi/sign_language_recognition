@@ -86,4 +86,5 @@ for k = 1 : length(state3)
 end
 
 S = {databaseStateOpen databaseStateClosed};
+database = S;
 save('database','S');
