@@ -5,7 +5,7 @@ function alphabetSign = ASL_recognition(HandRightState, inputImage)
 % Load database.mat if database does not exist
 if ~exist('database','var')
     % get 2-D array database
-    load('database_r1.mat');
+    load('database.mat');
 end
 
 % Get databaseOpen and databaseClosed

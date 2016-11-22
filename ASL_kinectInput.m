@@ -85,13 +85,13 @@ while ishandle(himg)
         line(X1,Y1, 'LineWidth', 1.5, 'LineStyle', '-', 'Marker', '+', 'Color', 'r');
         
         if rightHandDepth > 700
-            rightHandBorder = [rightHand(:,:,nearestHand)-70 140 140];
+            rightHandBorder = [rightHand(:,:,nearestHand)-80 160 160];
             rectangle('position', rightHandBorder, 'EdgeColor', 'y', 'LineWidth', 3);
         elseif rightHandDepth < 600
-            rightHandBorder = [rightHand(:,:,nearestHand)-70 140 140];
+            rightHandBorder = [rightHand(:,:,nearestHand)-80 160 160];
             rectangle('position', rightHandBorder, 'EdgeColor', 'r', 'LineWidth', 3);
         elseif rightHandDepth <700
-            rightHandBorder = [rightHand(:,:,nearestHand)-70 140 140];
+            rightHandBorder = [rightHand(:,:,nearestHand)-80 160 160];
             rectangle('position', rightHandBorder, 'EdgeColor', 'g', 'LineWidth', 3);
             snapshotCounter = snapshotCounter + 1;
         end
