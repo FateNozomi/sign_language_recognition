@@ -110,7 +110,6 @@ for k = 1 : length(reqFiles)
 end
 % converts cell to matrix in order to imshow
 handles.signA = imshow(cell2mat(handles.S(2,1)));
-handles.current_sign = handles.signA;
 
 % Choose default command line output for kinect_gui
 handles.output = hObject;
@@ -147,79 +146,53 @@ str = get(hObject, 'String');
 switch str{val}
     case 'A'
         handles.signA = imshow(cell2mat(handles.S(2,1)), 'Parent', handles.sign_axes);
-        handles.current_sign = handles.signA;
     case 'B'
         handles.signB = imshow(cell2mat(handles.S(2,2)), 'Parent', handles.sign_axes);
-        handles.current_sign = handles.signB;
     case 'C'
         handles.signC = imshow(cell2mat(handles.S(2,3)), 'Parent', handles.sign_axes);
-        handles.current_sign = handles.signC;
     case 'D'
         handles.signD = imshow(cell2mat(handles.S(2,4)), 'Parent', handles.sign_axes);
-        handles.current_sign = handles.signD;
     case 'E'
         handles.signE = imshow(cell2mat(handles.S(2,5)), 'Parent', handles.sign_axes);
-        handles.current_sign = handles.signE;
     case 'F'
         handles.signF = imshow(cell2mat(handles.S(2,6)), 'Parent', handles.sign_axes);
-        handles.current_sign = handles.signF;
     case 'G'
         handles.signG = imshow(cell2mat(handles.S(2,7)), 'Parent', handles.sign_axes);
-        handles.current_sign = handles.signG;
     case 'H'
         handles.signH = imshow(cell2mat(handles.S(2,8)), 'Parent', handles.sign_axes);
-        handles.current_sign = handles.signH;
     case 'I'
         handles.signI = imshow(cell2mat(handles.S(2,9)), 'Parent', handles.sign_axes);
-        handles.current_sign = handles.signI;
     case 'K'
         handles.signK = imshow(cell2mat(handles.S(2,11), 'Parent', handles.sign_axes));
-        handles.current_sign = handles.signK;
     case 'L'
         handles.signL = imshow(cell2mat(handles.S(2,12)), 'Parent', handles.sign_axes);
-        handles.current_sign = handles.signL;
     case 'M'
         handles.signM = imshow(cell2mat(handles.S(2,13)), 'Parent', handles.sign_axes);
-        handles.current_sign = handles.signM;
     case 'N'
         handles.signN = imshow(cell2mat(handles.S(2,14)), 'Parent', handles.sign_axes);
-        handles.current_sign = handles.signN;
     case 'O'
         handles.signO = imshow(cell2mat(handles.S(2,15)), 'Parent', handles.sign_axes);
-        handles.current_sign = handles.signO;
     case 'P'
         handles.signP = imshow(cell2mat(handles.S(2,16)), 'Parent', handles.sign_axes);
-        handles.current_sign = handles.signP;
     case 'Q'
         handles.signQ = imshow(cell2mat(handles.S(2,17)), 'Parent', handles.sign_axes);
-        handles.current_sign = handles.signQ;
     case 'R'
         handles.signR = imshow(cell2mat(handles.S(2,18)), 'Parent', handles.sign_axes);
-        handles.current_sign = handles.signR;
     case 'S'
         handles.signS = imshow(cell2mat(handles.S(2,19)), 'Parent', handles.sign_axes);
-        handles.current_sign = handles.signS;
     case 'T'
         handles.signT = imshow(cell2mat(handles.S(2,20)), 'Parent', handles.sign_axes);
-        handles.current_sign = handles.signT;
     case 'U'
         handles.signU = imshow(cell2mat(handles.S(2,21)), 'Parent', handles.sign_axes);
-        handles.current_sign = handles.signU;
     case 'V'
         handles.signV = imshow(cell2mat(handles.S(2,22)), 'Parent', handles.sign_axes);
-        handles.current_sign = handles.signV;
     case 'W'
         handles.signW = imshow(cell2mat(handles.S(2,23)), 'Parent', handles.sign_axes);
-        handles.current_sign = handles.signW;
     case 'X'
         handles.signX = imshow(cell2mat(handles.S(2,24)), 'Parent', handles.sign_axes);
-        handles.current_sign = handles.signX;
     case 'Y'
         handles.signY = imshow(cell2mat(handles.S(2,25)), 'Parent', handles.sign_axes);
-        handles.current_sign = handles.signY;
-        
 end
-drawnow();
 
 % Update handles structure
 guidata(hObject, handles);
@@ -355,155 +328,154 @@ end
 stop(depthVid);
 stop(colorVid);
 
-switch handles.current_sign
-    case handles.signA
+val = get(handles.alphabet_popupmenu, 'Value');
+str = get(handles.alphabet_popupmenu, 'String');
+switch str{val}
+    case 'A'
         if S == 'A'
             set(handles.output_text, 'String', 'Correct');
         else
             set(handles.output_text, 'String', 'Wrong');
         end
-    case handles.signB
+    case 'B'
         if S == 'B'
             set(handles.output_text, 'String', 'Correct');
         else
             set(handles.output_text, 'String', 'Wrong');
         end
-    case handles.signC
+    case 'C'
         if S == 'C'
             set(handles.output_text, 'String', 'Correct');
         else
             set(handles.output_text, 'String', 'Wrong');
         end
-    case handles.signD
+    case 'D'
         if S == 'D'
             set(handles.output_text, 'String', 'Correct');
         else
             set(handles.output_text, 'String', 'Wrong');
         end
-    case handles.signE
+    case 'E'
         if S == 'E'
             set(handles.output_text, 'String', 'Correct');
         else
             set(handles.output_text, 'String', 'Wrong');
         end
-    case handles.signF
+    case 'F'
         if S == 'F'
             set(handles.output_text, 'String', 'Correct');
         else
             set(handles.output_text, 'String', 'Wrong');
         end
-    case handles.signG
+    case 'G'
         if S == 'G'
             set(handles.output_text, 'String', 'Correct');
         else
             set(handles.output_text, 'String', 'Wrong');
         end
-    case handles.signH
+    case 'H'
         if S == 'H'
             set(handles.output_text, 'String', 'Correct');
         else
             set(handles.output_text, 'String', 'Wrong');
         end
-    case handles.signI
+    case 'I'
         if S == 'I'
             set(handles.output_text, 'String', 'Correct');
         else
             set(handles.output_text, 'String', 'Wrong');
         end
-    case handles.signK
+    case 'K'
         if S == 'K'
             set(handles.output_text, 'String', 'Correct');
         else
             set(handles.output_text, 'String', 'Wrong');
         end
-    case handles.signL
+    case 'L'
         if S == 'L'
             set(handles.output_text, 'String', 'Correct');
         else
             set(handles.output_text, 'String', 'Wrong');
         end
-    case handles.signM
+    case 'M'
         if S == 'M'
             set(handles.output_text, 'String', 'Correct');
         else
             set(handles.output_text, 'String', 'Wrong');
         end
-    case handles.signN
+    case 'N'
         if S == 'N'
             set(handles.output_text, 'String', 'Correct');
         else
             set(handles.output_text, 'String', 'Wrong');
         end
-    case handles.signO
+    case 'O'
         if S == 'O'
             set(handles.output_text, 'String', 'Correct');
         else
             set(handles.output_text, 'String', 'Wrong');
         end
-    case handles.signP
+    case 'P'
         if S == 'P'
             set(handles.output_text, 'String', 'Correct');
         else
             set(handles.output_text, 'String', 'Wrong');
         end
-    case handles.signQ
+    case 'Q'
         if S == 'Q'
             set(handles.output_text, 'String', 'Correct');
         else
             set(handles.output_text, 'String', 'Wrong');
         end
-    case handles.signR
+    case 'R'
         if S == 'R'
             set(handles.output_text, 'String', 'Correct');
         else
             set(handles.output_text, 'String', 'Wrong');
         end
-    case handles.signS
+    case 'S'
         if S == 'S'
             set(handles.output_text, 'String', 'Correct');
         else
             set(handles.output_text, 'String', 'Wrong');
         end
-    case handles.signT
+    case 'T'
         if S == 'T'
             set(handles.output_text, 'String', 'Correct');
         else
             set(handles.output_text, 'String', 'Wrong');
         end
-    case handles.signU
+    case 'U'
         if S == 'U'
             set(handles.output_text, 'String', 'Correct');
         else
             set(handles.output_text, 'String', 'Wrong');
         end
-    case handles.signV
+    case 'V'
         if S == 'V'
             set(handles.output_text, 'String', 'Correct');
         else
             set(handles.output_text, 'String', 'Wrong');
         end
-    case handles.signW
+    case 'W'
         if S == 'W'
             set(handles.output_text, 'String', 'Correct');
         else
             set(handles.output_text, 'String', 'Wrong');
         end
-    case handles.signX
+    case 'X'
         if S == 'X'
             set(handles.output_text, 'String', 'Correct');
         else
             set(handles.output_text, 'String', 'Wrong');
         end
-    case handles.signY
+    case 'Y'
         if S == 'Y'
             set(handles.output_text, 'String', 'Correct');
         else
             set(handles.output_text, 'String', 'Wrong');
         end
 end
-
-% Update handles structure
-guidata(hObject, handles);
 
 
 
