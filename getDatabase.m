@@ -52,9 +52,9 @@ for k = 1 : length(state)
     databaseStateOpen = [databaseStateOpen Z];
 end
 
-% For ['A' 'E' 'M' 'N' 'S' 'T']
+% For ['A' 'E' 'M' 'N' 'O' 'S' 'T']
 databaseStateClosed = [];
-state3 = [1:10 41:50 111:130 171:190];
+state3 = [1:10 41:50 111:140 171:190];
 for k = 1 : length(state3)
     %Index into the structure to access a particular item from reqFiles
     baseFileName = reqFiles(state3(k)).name;
@@ -87,4 +87,4 @@ end
 
 S = {databaseStateOpen databaseStateClosed};
 database = S;
-save('database','S');
+save('database','database');

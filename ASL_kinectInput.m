@@ -99,7 +99,7 @@ while ishandle(himg)
         if snapshotCounter == 3
             i = i + 1;
             inputImage = imcrop(depthMap, [rightHand(:,:,nearestHand)-80 160 160]);
-            Alphabet = ASL_recognition(rightHandState, inputImage)
+            Alphabet = ASL_recognition_v1(rightHandState, inputImage)
             % Reset snapshotCounter
             snapshotCounter = 0;
             close;
