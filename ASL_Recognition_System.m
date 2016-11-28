@@ -222,7 +222,6 @@ str = get(handles.alphabet_popupmenu, 'String');
 
 set(handles.output_text, 'String', 'Initializing');
 
-colorVid = handles.colorVid;
 depthVid = handles.depthVid;
 
 % Look at the device-specific properties on the depth source device,
@@ -236,14 +235,11 @@ depthSource.EnableBodyTracking = 'on';
 triggerconfig(depthVid, 'manual');
 depthVid.FramesPerTrigger = 1;
 depthVid.TriggerRepeat = inf;
-triggerconfig(colorVid, 'manual');
-colorVid.FramesPerTrigger = 1;
-colorVid.TriggerRepeat = inf;
 
 % Start the depth and color acquisition objects.
 % This begins acquisition, but does not start logging of acquired data.
-pause(5);
-start([depthVid colorVid]);
+pause(1);
+start(depthVid);
 
 % Start handle image variable
 % Initialize snapshotCounter variable
@@ -260,10 +256,8 @@ axes(handles.kinect_axes);
 while viewer == 1
     drawnow()
     trigger(depthVid);
-    trigger(colorVid);
     
     % Get images and metadata from the color and depth device objects.
-    [colorImg] = getdata(colorVid);
     [depthMap, ~, depthMetaData] = getdata(depthVid);
     
     % Find the indexes of the tracked bodies.
@@ -273,19 +267,21 @@ while viewer == 1
     % Find number of Skeletons tracked.
     nBodies = length(trackedBodies);
     
+    % Display captured depth data frame.
     imshow(depthMap, [0 4096], 'Parent', handles.kinect_axes);
     
+    % If body is being tracked, get the right hand coordnates.
     if (trackedBodies ~= 0)
         rightHand = depthMetaData.DepthJointIndices(12,:,trackedBodies);
         rightThumb = depthMetaData.DepthJointIndices(25,:,trackedBodies);
         
-        % Get right hand depth value for all tracked bodies
+        % Get right hand depth value for all tracked bodies.
         rightHandDepthMulti = [];
         for body = 1:nBodies
+            % Prevent getting out of bound values.
             if rightHand(1,1,body) > 512
                 rightHand(1,1,body) = 512;
             end
-            
             if rightHand(1,2,body) > 424
                 rightHand(1,2,body) = 424;
             end
@@ -293,18 +289,22 @@ while viewer == 1
             rightHandDepthMulti = [rightHandDepthMulti rightHandDepthM];
         end
         
-        % Only track the lowest right hand depth value / closest hand
+        % Only track the lowest right hand depth value / closest hand.
         [rightHandDepth,nearestHand] = min(rightHandDepthMulti);
         
-        rightHandDepth;
+        % Get the right hand state of the nearest hand.
         rightHandState = depthMetaData.HandRightState;
         rightHandState = rightHandState(trackedBodies(nearestHand));
         
-        
+        % Mark the right hand on the captured depth data frame.
         X1 = [round(rightHand(1,1,nearestHand)) round(rightThumb(1,1,nearestHand))];
         Y1 = [round(rightHand(1,2,nearestHand)) round(rightThumb(1,2,nearestHand))];
         line(X1,Y1, 'LineWidth', 1.5, 'LineStyle', '-', 'Marker', '+', 'Color', 'r');
         
+        % Draw rectangle border on the captured depth data frame.
+        % Yellow = too far
+        % Red = too near
+        % Green = within threshold
         if rightHandDepth > 700
             rightHandBorder = [rightHand(:,:,nearestHand)-80 160 160];
             rectangle('position', rightHandBorder, 'EdgeColor', 'y', 'LineWidth', 3);
@@ -314,13 +314,16 @@ while viewer == 1
         elseif rightHandDepth <700
             rightHandBorder = [rightHand(:,:,nearestHand)-80 160 160];
             rectangle('position', rightHandBorder, 'EdgeColor', 'g', 'LineWidth', 3);
-            snapshotCounter = snapshotCounter + 1;
+            snapshotCounter = snapshotCounter + 1; % increase snapshotCounter when within threshold
         end
         
+        % Show output_text as Analyzing
         if snapshotCounter == 2
             set(handles.output_text, 'String', 'Analyzing');
         end
         
+        % Show output_text as correct/wrong or any alphabets detected in
+        % FREE MODE.
         if snapshotCounter == 3
             inputImage = imcrop(depthMap, [rightHand(:,:,nearestHand)-80 160 160]);
             S = ASL_recognition_v1(rightHandState, inputImage);
@@ -337,7 +340,6 @@ while viewer == 1
     end
 end
 stop(depthVid);
-stop(colorVid);
 
 switch str{val}
     case 'A'
