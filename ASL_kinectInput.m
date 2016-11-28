@@ -1,8 +1,7 @@
 %Hand Tracking
 imaqreset
 
-% Create color and depth kinect videoinput objects.
-colorVid = videoinput('kinect', 1);
+% Create depth kinect videoinput object.
 depthVid = videoinput('kinect', 2);
 
 % Look at the device-specific properties on the depth source device,
@@ -16,14 +15,11 @@ depthSource.EnableBodyTracking = 'on';
 triggerconfig(depthVid, 'manual');
 depthVid.FramesPerTrigger = 1;
 depthVid.TriggerRepeat = inf;
-triggerconfig(colorVid, 'manual');
-colorVid.FramesPerTrigger = 1;
-colorVid.TriggerRepeat = inf;
 
 % Start the depth and color acquisition objects.
 % This begins acquisition, but does not start logging of acquired data.
-pause(5);
-start([depthVid colorVid]);
+pause(1);
+start(depthVid);
 
 % Start handle image variable
 % Initialize snapshotCounter variable
@@ -38,10 +34,8 @@ i = 0;
 
 while ishandle(himg)
     trigger(depthVid);
-    trigger(colorVid);
     
     % Get images and metadata from the color and depth device objects.
-    [colorImg] = getdata(colorVid);
     [depthMap, ~, depthMetaData] = getdata(depthVid);
     
     % Find the indexes of the tracked bodies.
@@ -108,5 +102,4 @@ while ishandle(himg)
     end
 end
 stop(depthVid);
-stop(colorVid);
 close;
