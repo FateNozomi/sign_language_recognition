@@ -22,7 +22,7 @@ function varargout = ASL_Recognition_System(varargin)
 
 % Edit the above text to modify the response to help ASL_Recognition_System
 
-% Last Modified by GUIDE v2.5 22-Nov-2016 18:52:20
+% Last Modified by GUIDE v2.5 28-Nov-2016 21:37:38
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -109,7 +109,7 @@ for k = 1 : length(reqFiles)
     handles.S{2,k} = imread(baseFilePath);
 end
 % converts cell to matrix in order to imshow
-handles.signA = imshow(cell2mat(handles.S(2,1)));
+handles.FM = imshow(cell2mat(handles.S(2,1)));
 
 % Choose default command line output for ASL_Recognition_System
 handles.output = hObject;
@@ -145,53 +145,55 @@ val = get(hObject, 'Value');
 str = get(hObject, 'String');
 switch str{val}
     case 'A'
-        handles.signA = imshow(cell2mat(handles.S(2,1)), 'Parent', handles.sign_axes);
+        handles.signA = imshow(cell2mat(handles.S(2,2)), 'Parent', handles.sign_axes);
     case 'B'
-        handles.signB = imshow(cell2mat(handles.S(2,2)), 'Parent', handles.sign_axes);
+        handles.signB = imshow(cell2mat(handles.S(2,3)), 'Parent', handles.sign_axes);
     case 'C'
-        handles.signC = imshow(cell2mat(handles.S(2,3)), 'Parent', handles.sign_axes);
+        handles.signC = imshow(cell2mat(handles.S(2,4)), 'Parent', handles.sign_axes);
     case 'D'
-        handles.signD = imshow(cell2mat(handles.S(2,4)), 'Parent', handles.sign_axes);
+        handles.signD = imshow(cell2mat(handles.S(2,5)), 'Parent', handles.sign_axes);
     case 'E'
-        handles.signE = imshow(cell2mat(handles.S(2,5)), 'Parent', handles.sign_axes);
+        handles.signE = imshow(cell2mat(handles.S(2,6)), 'Parent', handles.sign_axes);
     case 'F'
-        handles.signF = imshow(cell2mat(handles.S(2,6)), 'Parent', handles.sign_axes);
+        handles.signF = imshow(cell2mat(handles.S(2,7)), 'Parent', handles.sign_axes);
     case 'G'
-        handles.signG = imshow(cell2mat(handles.S(2,7)), 'Parent', handles.sign_axes);
+        handles.signG = imshow(cell2mat(handles.S(2,8)), 'Parent', handles.sign_axes);
     case 'H'
-        handles.signH = imshow(cell2mat(handles.S(2,8)), 'Parent', handles.sign_axes);
+        handles.signH = imshow(cell2mat(handles.S(2,9)), 'Parent', handles.sign_axes);
     case 'I'
-        handles.signI = imshow(cell2mat(handles.S(2,9)), 'Parent', handles.sign_axes);
+        handles.signI = imshow(cell2mat(handles.S(2,10)), 'Parent', handles.sign_axes);
     case 'K'
-        handles.signK = imshow(cell2mat(handles.S(2,11), 'Parent', handles.sign_axes));
+        handles.signK = imshow(cell2mat(handles.S(2,12)), 'Parent', handles.sign_axes);
     case 'L'
-        handles.signL = imshow(cell2mat(handles.S(2,12)), 'Parent', handles.sign_axes);
+        handles.signL = imshow(cell2mat(handles.S(2,13)), 'Parent', handles.sign_axes);
     case 'M'
-        handles.signM = imshow(cell2mat(handles.S(2,13)), 'Parent', handles.sign_axes);
+        handles.signM = imshow(cell2mat(handles.S(2,14)), 'Parent', handles.sign_axes);
     case 'N'
-        handles.signN = imshow(cell2mat(handles.S(2,14)), 'Parent', handles.sign_axes);
+        handles.signN = imshow(cell2mat(handles.S(2,15)), 'Parent', handles.sign_axes);
     case 'O'
-        handles.signO = imshow(cell2mat(handles.S(2,15)), 'Parent', handles.sign_axes);
+        handles.signO = imshow(cell2mat(handles.S(2,16)), 'Parent', handles.sign_axes);
     case 'P'
-        handles.signP = imshow(cell2mat(handles.S(2,16)), 'Parent', handles.sign_axes);
+        handles.signP = imshow(cell2mat(handles.S(2,17)), 'Parent', handles.sign_axes);
     case 'Q'
-        handles.signQ = imshow(cell2mat(handles.S(2,17)), 'Parent', handles.sign_axes);
+        handles.signQ = imshow(cell2mat(handles.S(2,18)), 'Parent', handles.sign_axes);
     case 'R'
-        handles.signR = imshow(cell2mat(handles.S(2,18)), 'Parent', handles.sign_axes);
+        handles.signR = imshow(cell2mat(handles.S(2,19)), 'Parent', handles.sign_axes);
     case 'S'
-        handles.signS = imshow(cell2mat(handles.S(2,19)), 'Parent', handles.sign_axes);
+        handles.signS = imshow(cell2mat(handles.S(2,20)), 'Parent', handles.sign_axes);
     case 'T'
-        handles.signT = imshow(cell2mat(handles.S(2,20)), 'Parent', handles.sign_axes);
+        handles.signT = imshow(cell2mat(handles.S(2,21)), 'Parent', handles.sign_axes);
     case 'U'
-        handles.signU = imshow(cell2mat(handles.S(2,21)), 'Parent', handles.sign_axes);
+        handles.signU = imshow(cell2mat(handles.S(2,22)), 'Parent', handles.sign_axes);
     case 'V'
-        handles.signV = imshow(cell2mat(handles.S(2,22)), 'Parent', handles.sign_axes);
+        handles.signV = imshow(cell2mat(handles.S(2,23)), 'Parent', handles.sign_axes);
     case 'W'
-        handles.signW = imshow(cell2mat(handles.S(2,23)), 'Parent', handles.sign_axes);
+        handles.signW = imshow(cell2mat(handles.S(2,24)), 'Parent', handles.sign_axes);
     case 'X'
-        handles.signX = imshow(cell2mat(handles.S(2,24)), 'Parent', handles.sign_axes);
+        handles.signX = imshow(cell2mat(handles.S(2,25)), 'Parent', handles.sign_axes);
     case 'Y'
-        handles.signY = imshow(cell2mat(handles.S(2,25)), 'Parent', handles.sign_axes);
+        handles.signY = imshow(cell2mat(handles.S(2,26)), 'Parent', handles.sign_axes);
+    case 'FREE MODE'
+        handles.FM = imshow(cell2mat(handles.S(2,1)), 'Parent', handles.sign_axes);
 end
 
 % Update handles structure
@@ -215,7 +217,10 @@ function check_sign_pushbutton_Callback(hObject, eventdata, handles)
 % hObject    handle to check_sign_pushbutton (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-set(handles.output_text, 'String', 'Analyzing');
+val = get(handles.alphabet_popupmenu, 'Value');
+str = get(handles.alphabet_popupmenu, 'String');
+
+set(handles.output_text, 'String', 'Initializing');
 
 colorVid = handles.colorVid;
 depthVid = handles.depthVid;
@@ -242,19 +247,18 @@ start([depthVid colorVid]);
 
 % Start handle image variable
 % Initialize snapshotCounter variable
-himg = 1;
+global viewer;
+viewer = 1;
 snapshotCounter = 0;
 
 % Marker colors for up to 6 bodies.
 colors = ['r';'g';'b';'c';'y';'m'];
 
-% Initialize save counter
-i = 0;
-
 % Set to kinect_axes
 axes(handles.kinect_axes);
 
-while himg == 1
+while viewer == 1
+    drawnow()
     trigger(depthVid);
     trigger(colorVid);
     
@@ -313,13 +317,20 @@ while himg == 1
             snapshotCounter = snapshotCounter + 1;
         end
         
+        if snapshotCounter == 2
+            set(handles.output_text, 'String', 'Analyzing');
+        end
+        
         if snapshotCounter == 3
-            i = i + 1;
             inputImage = imcrop(depthMap, [rightHand(:,:,nearestHand)-80 160 160]);
-            S = ASL_recognition(rightHandState, inputImage)
+            S = ASL_recognition_v1(rightHandState, inputImage);
             % Reset snapshotCounter
             snapshotCounter = 0;
-            himg = 2;
+            if strcmp(str{val},'FREE MODE')
+                set(handles.output_text, 'String', S);
+            else
+                viewer = 0;
+            end
             close;
         end
     
@@ -328,8 +339,6 @@ end
 stop(depthVid);
 stop(colorVid);
 
-val = get(handles.alphabet_popupmenu, 'Value');
-str = get(handles.alphabet_popupmenu, 'String');
 switch str{val}
     case 'A'
         if S == 'A'
@@ -487,3 +496,12 @@ function kinect_gui_CloseRequestFcn(hObject, eventdata, handles)
 
 % Hint: delete(hObject) closes the figure
 delete(hObject);
+
+
+% --- Executes on button press in stop_pushbutton.
+function stop_pushbutton_Callback(hObject, eventdata, handles)
+% hObject    handle to stop_pushbutton (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+global viewer;
+viewer = 0;
