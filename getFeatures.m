@@ -19,6 +19,10 @@ dbcMean = mean(databaseClosed,1);
 dbcMA = bsxfun(@minus, databaseClosed, dbcMean); %databaseClosed Mean Adjusted
 
 % --- Find the principal components aka eigenhands.
+% C = cov(A) returns the covariance.
+% If A is a matrix whose columns represent random variables and whose rows
+% represent observations, C is the covariance matrix with the corresponding
+% column variances along the diagonal.
 covarianceO=cov(dboMA');
 [coeff1, latent1] = eig(covarianceO);
 [latent1,idx] = sort(diag(latent1), 'descend'); %Sort eigenvalues
