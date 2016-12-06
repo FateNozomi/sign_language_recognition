@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.ezdeploy" plugin-version="1.0">
-  <configuration build-checksum="3778305653" file="D:\Users\Will\Documents\MATLAB\sign_language_recognition\American Sign Language Recognition System.prj" location="D:\Users\Will\Documents\MATLAB\sign_language_recognition" name="American Sign Language Recognition System" preferred-package-location="D:\Users\Will\Documents\MATLAB\sign_language_recognition\American Sign Language Recognition System\for_redistribution" preferred-package-type="package.type.exe" target="target.ezdeploy.standalone" target-name="Application Compiler">
+  <configuration build-checksum="1159149068" file="D:\Users\Will\Documents\MATLAB\sign_language_recognition\American Sign Language Recognition System.prj" location="D:\Users\Will\Documents\MATLAB\sign_language_recognition" name="American Sign Language Recognition System" preferred-package-location="D:\Users\Will\Documents\MATLAB\sign_language_recognition\American Sign Language Recognition System\for_redistribution" preferred-package-type="package.type.exe" target="target.ezdeploy.standalone" target-name="Application Compiler">
     <param.appname>ASL_Recognition_System</param.appname>
     <param.icon />
     <param.icons />
@@ -74,15 +74,15 @@
       <file>${PROJECT_ROOT}\ASL_Recognition_System.m</file>
     </fileset.main>
     <fileset.resources>
-      <file>${PROJECT_ROOT}\database_v1.mat</file>
+      <file>${PROJECT_ROOT}\features.mat</file>
     </fileset.resources>
     <fileset.package>
       <file>${PROJECT_ROOT}\asl_preview</file>
       <file>${PROJECT_ROOT}\GUI</file>
     </fileset.package>
     <fileset.depfun>
-      <file>${PROJECT_ROOT}\ASL_recognition.m</file>
       <file>${PROJECT_ROOT}\ASL_Recognition_System.fig</file>
+      <file>${PROJECT_ROOT}\ASL_recognition_v1.m</file>
       <file>${PROJECT_ROOT}\cropImage_Closed.m</file>
       <file>${PROJECT_ROOT}\cropImage_Open.m</file>
     </fileset.depfun>

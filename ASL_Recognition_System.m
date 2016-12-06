@@ -52,6 +52,7 @@ function ASL_Recognition_System_OpeningFcn(hObject, eventdata, handles, varargin
 % handles    structure with handles and user data (see GUIDATA)
 % varargin   command line arguments to ASL_Recognition_System (see VARARGIN)
 
+imaqreset
 axes(handles.kinect_axes);
 gui_directory = [pwd '\GUI'];
 baseFileName = 'grey.jpg';
@@ -79,12 +80,12 @@ imshow(placeholderImg);
 % end
 
 %Hand Tracking
-imaqreset
+% imaqreset
 
 % Create color and depth kinect videoinput objects.
-if ~exist('handles.colorVid','var')
-    handles.colorVid = videoinput('kinect', 1);
-end
+% if ~exist('handles.colorVid','var')
+%     handles.colorVid = videoinput('kinect', 1);
+% end
 
 if ~exist('handles.depthVid','var')
     handles.depthVid = videoinput('kinect', 2);
@@ -101,7 +102,7 @@ for k = 1 : length(reqFiles)
     baseFileName = reqFiles(k).name;
     %fullfile returns a string containing the full path to the file
     baseFilePath = fullfile(asl_preview_directory, baseFileName);
-    fprintf(1, 'Accessing %s\n', baseFilePath);
+    %fprintf(1, 'Accessing %s\n', baseFilePath);
     %Create cell array S of size() [2,K]
     %Fills up first row of S with length(reqFiles)
     handles.S{1,k} = k;
@@ -221,6 +222,7 @@ val = get(handles.alphabet_popupmenu, 'Value');
 str = get(handles.alphabet_popupmenu, 'String');
 
 set(handles.output_text, 'String', 'Initializing');
+set(handles.state_text, 'String', 'State: -');
 
 depthVid = handles.depthVid;
 
@@ -295,6 +297,11 @@ while viewer == 1
         % Get the right hand state of the nearest hand.
         rightHandState = depthMetaData.HandRightState;
         rightHandState = rightHandState(trackedBodies(nearestHand));
+%         if rightHandState == 3
+%             set(handles.state_text, 'String', 'State: Closed');
+%         else
+%             set(handles.state_text, 'String', 'State: Open');
+%         end
         
         % Mark the right hand on the captured depth data frame.
         X1 = [round(rightHand(1,1,nearestHand)) round(rightThumb(1,1,nearestHand))];
@@ -308,18 +315,21 @@ while viewer == 1
         if rightHandDepth > 700
             rightHandBorder = [rightHand(:,:,nearestHand)-80 160 160];
             rectangle('position', rightHandBorder, 'EdgeColor', 'y', 'LineWidth', 3);
+            set(handles.state_text, 'String', 'State: Too Far');
         elseif rightHandDepth < 600
             rightHandBorder = [rightHand(:,:,nearestHand)-80 160 160];
             rectangle('position', rightHandBorder, 'EdgeColor', 'r', 'LineWidth', 3);
+            set(handles.state_text, 'String', 'State: Too Close');
         elseif rightHandDepth <700
             rightHandBorder = [rightHand(:,:,nearestHand)-80 160 160];
             rectangle('position', rightHandBorder, 'EdgeColor', 'g', 'LineWidth', 3);
+            set(handles.state_text, 'String', 'State: Analyzing');
             snapshotCounter = snapshotCounter + 1; % increase snapshotCounter when within threshold
         end
         
         % Show output_text as Analyzing
         if snapshotCounter == 2
-            set(handles.output_text, 'String', 'Analyzing');
+            set(handles.output_text, 'String', '');
         end
         
         % Show output_text as correct/wrong or any alphabets detected in
